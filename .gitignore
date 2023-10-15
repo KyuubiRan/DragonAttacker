@@ -1,0 +1,7 @@
+﻿/.idea/
+/.vs/
+/.vscode/
+
+/DragonAttacker/bin/
+/DragonAttacker/obj/
+/DragonAttacker/DragonAttacker.csproj.user
