@@ -8,43 +8,67 @@
         Title="龙王喷水" Height="300" Width="280"
         ResizeMode="CanMinimize">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="30,35,0,0" TextWrapping="Wrap" Text="激活按键"
-                   VerticalAlignment="Top" />
-        <Button x:Name="TriggerButton" Content="Oem3" HorizontalAlignment="Left" Margin="110,33,0,0"
-                VerticalAlignment="Top" MinWidth="80" MaxWidth="80" Click="TriggerButton_OnClick"
-                LostFocus="TriggerButton_OnLostFocus" KeyDown="TriggerButton_OnKeyDown"
-                ToolTip="按下按键来执行龙王喷水，在执行的过程中再次按下即可取消。"/>
-        <TextBlock x:Name="KeyCodeText" HorizontalAlignment="Left" Margin="200,35,0,0" TextWrapping="Wrap" Text="192"
-                   ToolTip="按键的KeyCode。"
-                   VerticalAlignment="Top" />
+        <Grid ToolTip="按下按键来执行龙王喷水，在执行的过程中再次按下即可取消。">
+            <TextBlock HorizontalAlignment="Left" Margin="30,25,0,0" TextWrapping="Wrap" Text="激活按键"
+                       VerticalAlignment="Top" />
+            <Button x:Name="TriggerButton" Content="Oem3" HorizontalAlignment="Left" Margin="110,23,0,0"
+                    VerticalAlignment="Top" MinWidth="80" MaxWidth="80" Click="TriggerButton_OnClick"
+                    LostFocus="TriggerButton_OnLostFocus" KeyDown="TriggerButton_OnKeyDown" />
+            <TextBlock x:Name="KeyCodeText" HorizontalAlignment="Left" Margin="200,25,0,0" TextWrapping="Wrap"
+                       Text="192"
+                       ToolTip="按键的KeyCode。"
+                       VerticalAlignment="Top" />
+        </Grid>
 
-        <TextBlock HorizontalAlignment="Left" Margin="30,75,0,0" TextWrapping="Wrap" Text="转圈速度"
-                   VerticalAlignment="Top" />
-        <Slider x:Name="RotationSpeedSlider" HorizontalAlignment="Left" Margin="110,75,0,0" VerticalAlignment="Top"
-                Width="80" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"
-                ToolTip="转圈速度，越高越快，受游戏内灵敏度影响。"
-                ValueChanged="RotationSpeedSlider_OnValueChanged" />
-        <!-- <TextBox x:Name="RotationSpeedText" HorizontalAlignment="Left" Margin="110,75,0,0" VerticalAlignment="Top" Width="40" Text="0.4" TextAlignment="Center"  PreviewTextInput="RotationSpeedText_PreviewTextInput" /> -->
-        <TextBlock x:Name="RotationSpeedText" HorizontalAlignment="Left" Margin="200,76,0,0" TextWrapping="Wrap"
-                   Text="1x" VerticalAlignment="Top" />
+        <Grid ToolTip="转圈速度，越高越快，受游戏内灵敏度影响。">
+            <TextBlock HorizontalAlignment="Left" Margin="30,65,0,0" TextWrapping="Wrap" Text="转圈速度"
+                       VerticalAlignment="Top" />
+            <Slider x:Name="RotationSpeedSlider" HorizontalAlignment="Left" Margin="110,65,0,0" VerticalAlignment="Top"
+                    Width="80" Minimum="1" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"
+                    ValueChanged="RotationSpeedSlider_OnValueChanged" />
+            <!-- <TextBox x:Name="RotationSpeedText" HorizontalAlignment="Left" Margin="110,75,0,0" VerticalAlignment="Top" Width="40" Text="0.4" TextAlignment="Center"  PreviewTextInput="RotationSpeedText_PreviewTextInput" /> -->
+            <TextBlock x:Name="RotationSpeedText" HorizontalAlignment="Left" Margin="200,66,0,0" TextWrapping="Wrap"
+                       Text="1x" VerticalAlignment="Top" />
+        </Grid>
 
-        <TextBlock HorizontalAlignment="Left" Margin="30,115,0,0" TextWrapping="Wrap" Text="持续时间"
-                   VerticalAlignment="Top" />
-        <Slider x:Name="RotationTimeSlider" HorizontalAlignment="Left" Margin="110,115,0,0" VerticalAlignment="Top"
-                Width="80" Minimum="0.1" Maximum="15.0" TickFrequency="0.1" Value="3.0" IsSnapToTickEnabled="True"
-                ToolTip="每次执行的时间，如果你是6命，可以设置久一点。"
-                ValueChanged="RotationTimeSlider_OnValueChanged" />
-        <TextBlock x:Name="RotationTimeText" HorizontalAlignment="Left" Margin="200,116,0,0" TextWrapping="Wrap"
-                   Text="3.0s" VerticalAlignment="Top" />
+        <Grid ToolTip="每次执行的时间，如果你是6命，可以设置久一点。拉到最左边可以将转圈时间设置为无限">
+            <TextBlock HorizontalAlignment="Left" Margin="30,105,0,0" TextWrapping="Wrap" Text="持续时间"
+                       VerticalAlignment="Top" />
+            <Slider x:Name="RotationTimeSlider" HorizontalAlignment="Left" Margin="110,105,0,0" VerticalAlignment="Top"
+                    Width="80" Minimum="0.1" Maximum="15.0" TickFrequency="0.1" Value="3.0" IsSnapToTickEnabled="True"
+                    ValueChanged="RotationTimeSlider_OnValueChanged" />
+            <TextBlock x:Name="RotationTimeText" HorizontalAlignment="Left" Margin="200,106,0,0" TextWrapping="Wrap"
+                       Text="3.0s" VerticalAlignment="Top" />
+        </Grid>
 
-        <TextBlock HorizontalAlignment="Left" Margin="30,155,0,0" TextWrapping="Wrap" Text="转圈方向"
-                   VerticalAlignment="Top" />
-        <ComboBox x:Name="RotationDirectionCombo" HorizontalAlignment="Left" Margin="110,152,0,0"
-                  VerticalAlignment="Top" Width="80" SelectedIndex="0">
-            <ComboBoxItem Content="顺时针" />
-            <ComboBoxItem Content="逆时针" />
-        </ComboBox>
-        <CheckBox x:Name="AutoClickCheckBox" ToolTip="自动攻击并转圈" Content="自动左键" HorizontalAlignment="Left" Margin="30,192,0,0" VerticalAlignment="Top"/>
+        <Grid ToolTip="转圈方向，顺时针（向右）或逆时针（向左）移动光标。">
+            <TextBlock HorizontalAlignment="Left" Margin="30,145,0,0" TextWrapping="Wrap" Text="转圈方向"
+                       VerticalAlignment="Top" />
+            <ComboBox x:Name="RotationDirectionCombo" HorizontalAlignment="Left" Margin="110,142,0,0"
+                      VerticalAlignment="Top" Width="80" SelectedIndex="0">
+                <ComboBoxItem Content="顺时针" />
+                <ComboBoxItem Content="逆时针" />
+            </ComboBox>
+        </Grid>
+
+        <Grid>
+            <CheckBox x:Name="AutoClickCheckBox" ToolTip="自动攻击并转圈" Content="自动左键" HorizontalAlignment="Left"
+                      Checked="AutoClickCheckBox_OnChecked" Unchecked="AutoClickCheckBox_OnChecked"
+                      Margin="30,182,0,0" VerticalAlignment="Top" />
+
+            <Grid x:Name="ClickDurationGrid" ToolTip="左键按下到松开的时间（毫秒）" IsEnabled="False">
+                <TextBlock HorizontalAlignment="Left" Margin="30,211,0,0" TextWrapping="Wrap" Text="点击时间"
+                           VerticalAlignment="Top" />
+                <Slider x:Name="ClickDurationSlider" HorizontalAlignment="Left" Margin="110,210,0,0"
+                        VerticalAlignment="Top"
+                        Width="80" Minimum="25" Maximum="100" TickFrequency="1" Value="30"
+                        IsSnapToTickEnabled="True"
+                        ValueChanged="ClickDurationSlider_OnValueChanged" />
+                <TextBlock x:Name="ClickDurationText" HorizontalAlignment="Left" Margin="200,210,0,0"
+                           TextWrapping="Wrap"
+                           Text="300ms" VerticalAlignment="Top" />
+            </Grid>
+        </Grid>
 
     </Grid>
 </Window>

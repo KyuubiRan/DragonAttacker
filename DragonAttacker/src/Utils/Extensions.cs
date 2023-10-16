@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace DragonAttacker.Utils;
 
@@ -21,4 +22,12 @@ public static class Extensions
             action(item, i++);
         }
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool IsEmpty<T>(this T[] thiz) => thiz.Length == 0;    
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool IsNotEmpty<T>(this T[] thiz) => thiz.Length != 0;
+    
+    
 }

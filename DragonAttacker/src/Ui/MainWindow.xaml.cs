@@ -27,6 +27,7 @@ public partial class MainWindow
         RotationTimeSlider.Value = ConfigManager.GetFloat("RotationTime", 3.0f);
         RotationDirectionCombo.SelectedIndex = ConfigManager.GetInt("RotationDirection");
         AutoClickCheckBox.IsChecked = ConfigManager.GetBool("AutoClick");
+        ClickDurationSlider.Value = ConfigManager.GetInt("ClickDuration", 30);
 
         var key = (Key)ConfigManager.GetInt("TriggerKey", (int)Key.Oem3);
         SetHotkey(key);
@@ -41,7 +42,7 @@ public partial class MainWindow
                 AutoClick = AutoClickCheckBox.IsChecked ?? false,
                 RotationTime = infinity ? -1 : (int)(RotationTimeSlider.Value * 1000),
                 MovePixelsPerTime = (int)(50 * RotationSpeedSlider.Value) * (left ? -1 : 1),
-                MouseDownTime = 300
+                MouseDownTime = (int)ClickDurationSlider.Value * 10
             };
             Console.WriteLine("Action state: " + state);
             DragonMouseController.PushAction(state);
@@ -54,6 +55,7 @@ public partial class MainWindow
         ConfigManager.PutFloat("RotationSpeed", (float)RotationSpeedSlider.Value);
         ConfigManager.PutInt("RotationDirection", RotationDirectionCombo.SelectedIndex);
         ConfigManager.PutBool("AutoClick", AutoClickCheckBox.IsChecked ?? false);
+        ConfigManager.PutInt("ClickDuration", (int)ClickDurationSlider.Value);
 
         if (_hotkey.Key != Key.None)
             ConfigManager.PutInt("TriggerKey", (int)_hotkey.Key);
@@ -121,5 +123,18 @@ public partial class MainWindow
             RotationTimeText.Text =
                 Math.Abs(e.NewValue - RotationTimeSlider.Minimum) < 0.001 ? "无限" : $"{e.NewValue:F1}s";
         }
+    }
+
+    private void ClickDurationSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (ClickDurationText != null)
+        {
+            ClickDurationText.Text = $"{(int)e.NewValue * 10}ms";
+        }
+    }
+
+    private void AutoClickCheckBox_OnChecked(object sender, RoutedEventArgs e)
+    {
+        ClickDurationGrid.IsEnabled = AutoClickCheckBox.IsChecked ?? false;
     }
 }
