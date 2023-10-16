@@ -31,7 +31,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="30,115,0,0" TextWrapping="Wrap" Text="持续时间"
                    VerticalAlignment="Top" />
         <Slider x:Name="RotationTimeSlider" HorizontalAlignment="Left" Margin="110,115,0,0" VerticalAlignment="Top"
-                Width="80" Minimum="0.1" Maximum="10.0" TickFrequency="0.1" Value="3.0" IsSnapToTickEnabled="True"
+                Width="80" Minimum="0.1" Maximum="15.0" TickFrequency="0.1" Value="3.0" IsSnapToTickEnabled="True"
                 ToolTip="每次执行的时间，如果你是6命，可以设置久一点。"
                 ValueChanged="RotationTimeSlider_OnValueChanged" />
         <TextBlock x:Name="RotationTimeText" HorizontalAlignment="Left" Margin="200,116,0,0" TextWrapping="Wrap"

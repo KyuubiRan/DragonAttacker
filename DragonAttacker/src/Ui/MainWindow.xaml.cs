@@ -28,7 +28,7 @@ public partial class MainWindow
         RotationDirectionCombo.SelectedIndex = ConfigManager.GetInt("RotationDirection");
         AutoClickCheckBox.IsChecked = ConfigManager.GetBool("AutoClick");
 
-        var key = (Key)ConfigManager.GetInt("TriggerKey");
+        var key = (Key)ConfigManager.GetInt("TriggerKey", (int)Key.Oem3);
         SetHotkey(key);
         HotkeyManager.Register(_hotkey);
         _hotkey.OnKeyDown += _ =>

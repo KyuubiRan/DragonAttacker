@@ -220,14 +220,16 @@ public static class DragonMouseController
 
                 _rotationTimer.Elapsed += (_, _) =>
                 {
-                    var input = new[]
-                    {
-                        AllocNewMouseInput()
-                    };
-                    input[0].u.mi.dx = actionState.MovePixelsPerTime;
-                    input[0].u.mi.dwFlags = (uint)MouseEventF.Move;
-                    
-                    SendInput(1, input, Marshal.SizeOf(input[0]));
+                    // var input = new[]
+                    // {
+                    //     AllocNewMouseInput()
+                    // };
+                    // input[0].u.mi.dx = actionState.MovePixelsPerTime;
+                    // input[0].u.mi.dwFlags = (uint)MouseEventF.Move;
+                    //
+                    // SendInput(1, input, Marshal.SizeOf(input[0]));
+
+                    mouse_event((uint)MouseEventFlags.MOVE, actionState.MovePixelsPerTime, 0, 0, 0);
                 };
 
                 _rotationTimer.Start();
