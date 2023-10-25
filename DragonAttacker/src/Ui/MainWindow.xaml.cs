@@ -18,7 +18,8 @@ public partial class MainWindow
         InitializeComponent();
     }
 
-    private readonly Hotkey _hotkey = new();
+    private readonly Hotkey _dragonHotkey = new();
+    private readonly Hotkey _rapidFHotkey = new(Key.F);
 
     protected override void OnInitialized(EventArgs e)
     {
@@ -28,11 +29,14 @@ public partial class MainWindow
         RotationDirectionCombo.SelectedIndex = ConfigManager.GetInt("RotationDirection");
         AutoClickCheckBox.IsChecked = ConfigManager.GetBool("AutoClick");
         ClickDurationSlider.Value = ConfigManager.GetInt("ClickDuration", 30);
+        RapidFKey.IsChecked = ConfigManager.GetBool("RapidFKey");
 
         var key = (Key)ConfigManager.GetInt("TriggerKey", (int)Key.Oem3);
         SetHotkey(key);
-        HotkeyManager.Register(_hotkey);
-        _hotkey.OnKeyDown += _ =>
+        HotkeyManager.Register(_dragonHotkey);
+        HotkeyManager.Register(_rapidFHotkey);
+        _rapidFHotkey.OnKeyDown += _ => { RapidFKeyController.BlockingQueue.Add(1); };
+        _dragonHotkey.OnKeyDown += _ =>
         {
             var left = RotationDirectionCombo.SelectedIndex == 1;
             Console.WriteLine($"Left:{left}");
@@ -56,9 +60,10 @@ public partial class MainWindow
         ConfigManager.PutInt("RotationDirection", RotationDirectionCombo.SelectedIndex);
         ConfigManager.PutBool("AutoClick", AutoClickCheckBox.IsChecked ?? false);
         ConfigManager.PutInt("ClickDuration", (int)ClickDurationSlider.Value);
+        ConfigManager.PutBool("RapidFKey", RapidFKey.IsChecked ?? false);
 
-        if (_hotkey.Key != Key.None)
-            ConfigManager.PutInt("TriggerKey", (int)_hotkey.Key);
+        if (_dragonHotkey.Key != Key.None)
+            ConfigManager.PutInt("TriggerKey", (int)_dragonHotkey.Key);
     }
 
     private bool _handleHotkey;
@@ -92,13 +97,13 @@ public partial class MainWindow
 
     private void SetKeyText()
     {
-        TriggerButton.Content = _hotkey.KeyString;
-        KeyCodeText.Text = _hotkey.VkCode.ToString();
+        TriggerButton.Content = _dragonHotkey.KeyString;
+        KeyCodeText.Text = _dragonHotkey.VkCode.ToString();
     }
 
     private void SetHotkey(Key key)
     {
-        _hotkey.SetVKey((short)KeyInterop.VirtualKeyFromKey(key));
+        _dragonHotkey.SetVKey((short)KeyInterop.VirtualKeyFromKey(key));
         SetKeyText();
     }
 
@@ -112,7 +117,7 @@ public partial class MainWindow
     protected override void OnClosing(CancelEventArgs e)
     {
         base.OnClosing(e);
-        HotkeyManager.Unregister(_hotkey);
+        HotkeyManager.Unregister(_dragonHotkey);
         SaveChanges();
     }
 
@@ -136,5 +141,10 @@ public partial class MainWindow
     private void AutoClickCheckBox_OnChecked(object sender, RoutedEventArgs e)
     {
         ClickDurationGrid.IsEnabled = AutoClickCheckBox.IsChecked ?? false;
+    }
+
+    private void RapidFKey_OnChecked(object sender, RoutedEventArgs e)
+    {
+        RapidFKeyController.IsEnabled = RapidFKey.IsChecked ?? false;
     }
 }

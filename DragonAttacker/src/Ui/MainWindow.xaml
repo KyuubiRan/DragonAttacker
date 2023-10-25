@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DragonAttacker"
         mc:Ignorable="d"
-        Title="龙王喷水" Height="300" Width="280"
+        Title="龙王喷水" Height="320" Width="280"
         ResizeMode="CanMinimize">
     <Grid>
         <Grid ToolTip="按下按键来执行龙王喷水，在执行的过程中再次按下即可取消。">
@@ -68,6 +68,12 @@
                            TextWrapping="Wrap"
                            Text="300ms" VerticalAlignment="Top" />
             </Grid>
+        </Grid>
+        
+        <Grid>
+            <CheckBox x:Name="RapidFKey" ToolTip="快捷捡垃圾" Content="F键连发" HorizontalAlignment="Left"
+                      Checked="RapidFKey_OnChecked" Unchecked="RapidFKey_OnChecked"
+                      Margin="30,242,0,0" VerticalAlignment="Top" />
         </Grid>
 
     </Grid>

@@ -9,6 +9,8 @@ public class Hotkey
     public int KeyCode => (int)Key;
     public int VkCode => KeyInterop.VirtualKeyFromKey(Key);
 
+    private bool IsDown = false;
+
     public string KeyString => Key.ToString();
 
     public Key Key { get; set; } = Key.None;
@@ -47,7 +49,12 @@ public class Hotkey
 
     public void KeyDown(Key key)
     {
-        if (key != this.Key) return;
+        if (key != Key) return;
+        if (IsDown)
+            return;
+        
+        IsDown = true;
+
 #if DEBUG
         Console.WriteLine($"KeyDown: {KeyString}({VkCode})");
 #endif
@@ -57,6 +64,10 @@ public class Hotkey
     public void KeyDown(int vkCode)
     {
         if (vkCode != VkCode) return;
+        if (IsDown)
+            return;
+        
+        IsDown = true;
 #if DEBUG
         Console.WriteLine($"KeyDown: {KeyString}({vkCode})");
 #endif
@@ -67,6 +78,10 @@ public class Hotkey
     public void KeyUp(Key key)
     {
         if (key != this.Key) return;
+        if (!IsDown)
+            return;
+        
+        IsDown = false;
 #if DEBUG
         Console.WriteLine($"KeyUp: {KeyString}({VkCode})");
 #endif
@@ -76,6 +91,10 @@ public class Hotkey
     public void KeyUp(int vkCode)
     {
         if (vkCode != VkCode) return;
+        if (!IsDown)
+            return;
+        
+        IsDown = false;
 #if DEBUG
         Console.WriteLine($"KeyUp: {KeyString}({vkCode})");
 #endif
@@ -91,8 +110,7 @@ public class Hotkey
 
         return false;
     }
-
-
+    
     public override int GetHashCode()
     {
         return KeyCode + (int)_hash;
